@@ -22,4 +22,10 @@ class Kele
     raise 'Invalid Auth Token' unless response.code == 200
     parsed_response = JSON.parse(response.body)
   end
+
+  def get_mentor_availability(mentor_id)
+    mentor_url = '/mentors/' << mentor_id.to_s << '/student_availability'
+    response = self.class.get(mentor_url, headers: { 'authorization' => @auth_token })
+    parsed_response = JSON.parse(response.body)
+  end
 end
