@@ -15,6 +15,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  httparty (~> 0.13)
   kele!
 
 BUNDLED WITH
