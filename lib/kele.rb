@@ -42,7 +42,7 @@ class Kele
 
   def create_message(sender, recipient_id, token, subject, text)
     message_values = {
-      my_body: {
+      body: {
         sender: sender.to_s,
         recipient_id: recipient_id.to_i,
         token: token.to_s,
@@ -53,5 +53,20 @@ class Kele
     response = self.class.post('https://private-anon-b99b0892a6-blocapi.apiary-mock.com/api/v1/messages', values: message_values, headers: { 'authorization' => @auth_token })
     raise 'Invalid Message' unless response.code == 200
     puts 'Message successfully posted!' if response.code == 200
+  end
+
+  def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+    submission_values = {
+      body: {
+        checkpoint_id: checkpoint_id.to_s,
+        assignment_branch: assignment_branch.to_s,
+        assignment_commit_link: assignment_commit_link.to_s,
+        comment: comment.to_s
+      }
+    }
+
+    response = self.class.post('/checkpoint_submissions', values: submission_values, headers: { 'authorization' => @auth_token })
+    raise 'Invalid Submission' unless response.code == 200
+    puts 'Checkpoint successfully submitted!' if response.code == 200
   end
 end
